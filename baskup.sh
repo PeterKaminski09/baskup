@@ -15,8 +15,8 @@ ENDOFSQL
 #Now we need to run the python script that will parse this file and store all phone numbers
 cd
 
-#IMPORTANT: THIS SHOULD BE THE DIRECTORY OF YOUR BASKUP DOWNLOAD. If you haven't moved baskup to your desktop, it may need to be ./Downloads/baskup. Just keep this in mind
-cd ./Desktop/baskup
+#IMPORTANT: THIS SHOULD BE THE DIRECTORY OF YOUR BASKUP DOWNLOAD. If you have moved baskup to your desktop, it may need to be ./Downloads/baskup-master. Just keep this in mind
+cd ./Downloads/baskup-master
 python parseContacts.py
 
 bash backUpMessages.sh /tmp/pyContacts.txt

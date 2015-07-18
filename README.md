@@ -13,15 +13,25 @@ To use baskup:
 
 Download baskup right from this page by clicking download zip, making sure it is stored in your Downloads folder as 'baskup-master'
 
+![alt tag](https://cloud.githubusercontent.com/assets/5935411/8760632/23ce21b8-2cee-11e5-80d7-37c97505cd17.JPEG)
 _Open terminal_
 
+
+![alt tag](https://cloud.githubusercontent.com/assets/5935411/8760636/2be1c850-2cee-11e5-96e9-92b2a1b4b10a.png)
 _Type: cd ./Downloads/baskup-master_
 
 _Run: bash baskup.sh_
 
+
 Your bask-up master folder will now begin to be filled with your backups. This may take some time, so be patient. 
 
-You're done! 
+![alt tag](https://cloud.githubusercontent.com/assets/5935411/8760633/272d34c0-2cee-11e5-87c7-084d3bc8f21f.png)
+_Each folder will be named after the contact's phone number. Group chat's will be identified as "chat XYZ"_
+
+![alt tag](https://cloud.githubusercontent.com/assets/5935411/8760635/29201a04-2cee-11e5-9cc7-668b6a6e5ee0.png)
+_Within each directory you will find a directory for the attachments from that message, and the actual message text file._ 
+
+#You're done! 
 
 
 

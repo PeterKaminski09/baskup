@@ -22,7 +22,7 @@ Type: cd ./Downloads/baskup-master
 
 Run: bash baskup.sh
 
-You're bask-up master folder will now begin to be filled with your backups. This may take some time, so be patient. 
+Your bask-up master folder will now begin to be filled with your backups. This may take some time, so be patient. 
 
 You're done! 
 

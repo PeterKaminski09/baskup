@@ -1,22 +1,24 @@
 #!/bin/sh
 
-#  baskup.sh
-#  
-#
-#  Created by Peter Kaminski on 7/17/15. http://github.com/peterkaminski09
-#
-#  This script will back up all of your imessages to a directory in home.
 
-#Go into the messages database and output all contact phone numbers to the tmp folder
-sqlite3 ~/Library/Messages/chat.db <<ENDOFSQL>/tmp/dumped.txt
-select * from chat;
+cd "`dirname "$0"`"
+path_scriptdir="`pwd -P`"
+TMPDIR="$path_scriptdir"'/tmp'
+
+mkdir -p "$TMPDIR"
+
+
+# Go into the messages database and output all contact phone numbers to the tmp folder
+tmp_sqldump="`mktemp -t sqldump.XXXXXX`" || exit 1
+sqlite3 ~/Library/Messages/chat.db <<-ENDOFSQL > "$tmp_sqldump"
+	select * from chat;
 ENDOFSQL
 
+
 #Now we need to run the python script that will parse this file and store all phone numbers
-cd
+tmp_parsed="`mktemp -t parsed.XXXXXX`" || exit 1
+python parseContacts.py "$tmp_sqldump" "$tmp_parsed"
 
-#IMPORTANT: THIS SHOULD BE THE DIRECTORY OF YOUR BASKUP DOWNLOAD. If you have moved baskup to your desktop, it may need to be ./Downloads/baskup-master. Just keep this in mind
-cd ./Downloads/baskup-master
-python parseContacts.py
 
-bash backUpMessages.sh /tmp/pyContacts.txt
+bash backUpMessages.sh "$tmp_parsed"
+

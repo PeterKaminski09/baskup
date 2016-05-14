@@ -31,8 +31,10 @@ _Each folder will be named after the contact's phone number. Group chat's will b
 ![alt tag](https://cloud.githubusercontent.com/assets/5935411/8760635/29201a04-2cee-11e5-9cc7-668b6a6e5ee0.png)
 _Within each directory you will find a directory for the attachments from that message, and the actual message text file._ 
 
-#You're done! 
+You're done! 
 
+
+Update: 5/14/2016 -- Timestamps are now supported! 
 
 
 #Author - Peter Kaminski

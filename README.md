@@ -1,4 +1,6 @@
 #Baskup is now an OS X desktop application. Download @ http://peterkaminski09.github.io/baskup/
+  
+####*NEW* OS X application supports contact recognition and timestamps, and is super user friendly
 
 # What is baskup?
 

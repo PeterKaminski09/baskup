@@ -1,3 +1,5 @@
+#Baskup is now an OS X desktop application. Download @ http://peterkaminski09.github.io/baskup/
+
 # What is baskup?
 
 baskup is a bash script that is aimed at taking your iMessages, which Apple stores on your local machine in non-readable iChat files, and copying them into human-readable text files.

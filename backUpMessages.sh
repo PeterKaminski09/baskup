@@ -39,4 +39,5 @@ select rowid from message where cache_has_attachments=1 and handle_id=(
 select handle_id from chat_handle_join where chat_id=(
 select ROWID from chat where guid='$line')
 )))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname Attachments/
+find . -type d -empty -name "Attachments" -delete
 done

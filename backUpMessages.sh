@@ -4,7 +4,7 @@
 #  
 #
 #  Created by Peter Kaminski on 7/17/15.
-# Main code can be found at https://github.com/kyro38/MiscStuff/blob/master/OSXStuff/.bashrc
+# Main code can be found at https://github.com/kyro38/MiscStuff/blob/master/OSXStuff/iMessageBackup.sh
 # However I have tweaked it a bit to optimize the result
 
 #Read all information that our python script dug up

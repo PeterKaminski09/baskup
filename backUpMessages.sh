@@ -30,7 +30,6 @@ select ROWID from chat where guid='$line')
 cd
 cd ./Downloads/baskup-master/$contactNumber
 mkdir "Attachments"
-cd "Attachments"
 #Retrieve the attached stored in the local cache
 
 sqlite3 ~/Library/Messages/chat.db "
@@ -39,5 +38,5 @@ select attachment_id from message_attachment_join where message_id in (
 select rowid from message where cache_has_attachments=1 and handle_id=(
 select handle_id from chat_handle_join where chat_id=(
 select ROWID from chat where guid='$line')
-)))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname .
+)))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname Attachments/
 done

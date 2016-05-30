@@ -9,9 +9,8 @@
 
 # Read contacts from stdin.
 while read line; do
-contact=$line
-arrIN=(${contact//;/ })
-contactNumber=${arrIN[2]}
+arrIN=(${line//;/ })
+contactNumber="${arrIN[2]}"
 #Get to the home directory
 cd
 #This path should be the same as the path you use in baskup.sh

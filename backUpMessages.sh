@@ -8,8 +8,7 @@
 # However I have tweaked it a bit to optimize the result
 
 #Read all information that our python script dug up
-while IFS='' read -r line || [[ -n $line ]]; do
-
+while read line; do
 contact=$line
 arrIN=(${contact//;/ })
 contactNumber=${arrIN[2]}
@@ -42,4 +41,4 @@ select handle_id from chat_handle_join where chat_id=(
 select ROWID from chat where guid='$line')
 )))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname .
 $line
-done < "$1"
+done

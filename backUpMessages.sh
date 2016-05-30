@@ -16,7 +16,9 @@ cd
 #This path should be the same as the path you use in baskup.sh
 cd ./Downloads/baskup-master
 #Make a directory specifically for this folder
-mkdir $contactNumber
+if [[ ! -e "$contactNumber" ]]; then
+	mkdir "$contactNumber"
+fi
 #Now get into the directory
 cd $contactNumber
 #Perform SQL operations
@@ -28,7 +30,9 @@ select ROWID from chat where guid='$line')
 
 cd
 cd ./Downloads/baskup-master/$contactNumber
-mkdir "Attachments"
+if [[ ! -e "Attachments" ]]; then
+	mkdir "Attachments"
+fi
 #Retrieve the attached stored in the local cache
 
 sqlite3 ~/Library/Messages/chat.db "

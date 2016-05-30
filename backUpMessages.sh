@@ -7,7 +7,7 @@
 # Main code can be found at https://github.com/kyro38/MiscStuff/blob/master/OSXStuff/iMessageBackup.sh
 # However I have tweaked it a bit to optimize the result
 
-#Read all information that our python script dug up
+# Read contacts from stdin.
 while read line; do
 contact=$line
 arrIN=(${contact//;/ })

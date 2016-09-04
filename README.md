@@ -1,7 +1,11 @@
 #Baskup is now an OS X desktop application. Download @ http://peterkaminski09.github.io/baskup/ 
-## Future improvements to Baskup will only be available on the desktop version. 
+
+####*Updates: 5/14/2016*
+#### -- Timestamps are now supported!
+####-- Future improvements to Baskup will only be available on the desktop version. 
   
-####*NEW* OS X application supports contact recognition and timestamps, and is super user friendly
+####-- *NEW* OS X application supports contact recognition and timestamps, and is super user friendly
+
 
 # What is baskup?
 
@@ -37,9 +41,6 @@ _Each folder will be named after the contact's phone number. Group chat's will b
 _Within each directory you will find a directory for the attachments from that message, and the actual message text file._ 
 
 You're done! 
-
-
-Update: 5/14/2016 -- Timestamps are now supported! 
 
 
 #Author - Peter Kaminski

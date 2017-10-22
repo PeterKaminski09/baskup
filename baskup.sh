@@ -1,22 +1,31 @@
 #!/bin/sh
+BACKUP_DIR=./backup
 
-#  baskup.sh
-#  
-#
-#  Created by Peter Kaminski on 7/17/15. http://github.com/peterkaminski09
-#
-#  This script will back up all of your imessages to a directory in home.
+function select_rows () {
+  sqlite3 ~/Library/Messages/chat.db "$1"
+}
 
-#Go into the messages database and output all contact phone numbers to the tmp folder
-sqlite3 ~/Library/Messages/chat.db <<ENDOFSQL>/tmp/dumped.txt
-select * from chat;
-ENDOFSQL
+for line in $(select_rows "select distinct guid from chat;" ); do
 
-#Now we need to run the python script that will parse this file and store all phone numbers
-cd
+  contact=$line
+  arrIN=(${contact//;/ })
+  contactNumber=${arrIN[2]}
+  #Make a directory specifically for this folder
+  mkdir -p $BACKUP_DIR/$contactNumber/Attachments
 
-#IMPORTANT: THIS SHOULD BE THE DIRECTORY OF YOUR BASKUP DOWNLOAD. If you have moved baskup to your desktop, it may need to be ./Downloads/baskup-master. Just keep this in mind
-cd ./Downloads/baskup-master
-python parseContacts.py
+  #Perform SQL operations
+  select_rows "
+  select is_from_me,text, datetime(date + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
+  select handle_id from chat_handle_join where chat_id=(
+  select ROWID from chat where guid='$line')
+  )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
 
-bash backUpMessages.sh /tmp/pyContacts.txt
+  select_rows "
+  select filename from attachment where rowid in (
+  select attachment_id from message_attachment_join where message_id in (
+  select rowid from message where cache_has_attachments=1 and handle_id=(
+  select handle_id from chat_handle_join where chat_id=(
+  select ROWID from chat where guid='$line')
+  )))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -I fname cp fname $BACKUP_DIR/$contactNumber/Attachments
+
+done

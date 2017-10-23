@@ -1,6 +1,6 @@
-### *Last updated: 8/21/2017*
 # 🎉 Baskup is now an OS X desktop application! 🎉
 ## Download @ http://peterkaminski09.github.io/baskup/ 
+### *Last updated: 10/23/2017*
 
 Download the MacOS app for contact recognition, timestamps, and automated backups (coming soon)
 
@@ -43,6 +43,9 @@ Your bask-up master folder will now begin to be filled with your backups. This m
 
 #### Within each directory you will find a directory for the attachments from that message, and the actual message text file. 
 
+## Opening an issue
+
+When opening an issue, please note the issue as either related to the bash script or the macOS version of baskup. For macOS, please include the version number in your issue log. 
 
 ## Contributing
-Open source contributions to this script are welcome! This project is currently being maintained by @peterkaminski09 and has contributions from @timegaleckas
+Open source contributions to this script are welcome! This project is currently being maintained by @peterkaminski09 and has contributions from @timegaleckas and @Pezmc

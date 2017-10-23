@@ -6,7 +6,7 @@ Download the MacOS app for contact recognition, timestamps, and automated backup
 
 *Most future improvements to Baskup will only be available on the desktop version.*
 
-## What is Baskup?
+## What is Baskup? 📲 + 💬 = 📦
 
 Baskup is a bash script that is aimed at taking your iMessages, which Apple stores on your local machine in non-readable iChat files, and copying them into human-readable text files.
 Whether it's a group message, picture, audio file, iMessage, or SMS, Baskup will back it up.
@@ -27,11 +27,11 @@ From terminal:
 
 1. Run: cd (path of the downloaded baskup folder, i.e *cd ~/Downloads/baskup-master*)
 
-💌 2a. Run: *bash baskup.sh* to only backup messages 
+2a. Run: *bash baskup.sh* to only backup messages 💬
 
-💌 + 📎 2b. Run: *bash baskup.sh -a* to backup messages AND attachments
+2b. Run: *bash baskup.sh -a* to backup messages AND attachments 💬 + 📎
 
-Your bask-up master folder will now begin to be filled with your backups. This may take some time, so be patient. 
+Your bask-up master folder will now begin to be filled with your backups. This may take some time, so be patient.
 
 ## All done
 ![alt tag](https://cloud.githubusercontent.com/assets/5935411/8760633/272d34c0-2cee-11e5-87c7-084d3bc8f21f.png)

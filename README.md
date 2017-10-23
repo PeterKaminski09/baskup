@@ -27,7 +27,8 @@ From terminal:
 
 1. Run: cd (path of the downloaded baskup folder, i.e *cd ~/Downloads/baskup-master*)
 
-2. Run: *bash baskup.sh*
+2a. Run: *bash baskup.sh* to only backup messages
+2b. Run: *bash baskup.sh -a* to backup messages AND attachments
 
 Your bask-up master folder will now begin to be filled with your backups. This may take some time, so be patient. 
 

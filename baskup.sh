@@ -1,6 +1,10 @@
 #!/bin/sh
 BACKUP_DIR=./backup
 
+OS_Version=$(sw_vers -productVersion)
+LAST_VERSION=10.13
+NEEDS_MODIFICATION=$(echo $OS_Version '>=' $LAST_VERSION | bc -l)
+
 function select_rows () {
   sqlite3 ~/Library/Messages/chat.db "$1"
 }
@@ -14,11 +18,19 @@ for line in $(select_rows "select distinct guid from chat;" ); do
   mkdir -p $BACKUP_DIR/$contactNumber/Attachments
 
   #Perform SQL operations
-  select_rows "
-  select is_from_me,text, datetime(date + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
-  select handle_id from chat_handle_join where chat_id=(
-  select ROWID from chat where guid='$line')
-  )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+  if [[ $NEEDS_MODIFICATION == 1 ]]; then
+    select_rows "
+    select is_from_me,text, datetime((date/1000000000) + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
+    select handle_id from chat_handle_join where chat_id=(
+    select ROWID from chat where guid='$line')
+    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+  else
+    select_rows "
+    select is_from_me,text, datetime(date + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
+    select handle_id from chat_handle_join where chat_id=(
+    select ROWID from chat where guid='$line')
+    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+  fi
 
   select_rows "
   select filename from attachment where rowid in (

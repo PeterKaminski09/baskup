@@ -48,4 +48,4 @@ Your bask-up master folder will now begin to be filled with your backups. This m
 When opening an issue, please note the issue as either related to the bash script or the macOS version of baskup. For macOS, please include the version number in your issue log. 
 
 ## Contributing
-Open source contributions to this script are welcome! This project is currently being maintained by @peterkaminski09 and has contributions from @timegaleckas and @Pezmc
+Open source contributions to this script are welcome! This project is currently being maintained by @peterkaminski09 and has contributions from @timgaleckas and @Pezmc

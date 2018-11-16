@@ -4,7 +4,7 @@
 ### *Update: 11/16/2018*
 Due to Apple security improvements, macOS Mojave users will need to add the program to the System Preferences → Security & Privacy → Privacy → Full Disk Access pane. This allows Baskup to access messages.
 
-To use the baskup script, users will need to add their terminal application to the Full Disk Access pane.
+Baskup script users will need to add their terminal application to the Full Disk Access pane. Please note that granting your terminal application Full Disk Access allows all scripts run within your terminal to have Full Disk Access. After you have run your backup, you should revoke Full Disk Access from your terminal app and regrant it access only when you plan on running a backup.
 
 ![screen shot 2018-11-16 at 1 10 55 pm](https://user-images.githubusercontent.com/5935411/48647550-2c7a0200-e9a1-11e8-832a-4500ea67e571.jpg)
 

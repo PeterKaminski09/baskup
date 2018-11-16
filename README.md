@@ -2,7 +2,9 @@
 ## Download @ http://peterkaminski09.github.io/baskup/ 
 
 ### *Update: 11/16/2018*
-Mojave users will need to add the program to the System Preferences → Security & Privacy → Privacy → Full Disk Access pane. 
+Due to Apple security improvements, macOS Mojave users will need to add the program to the System Preferences → Security & Privacy → Privacy → Full Disk Access pane. This allows Baskup to access messages.
+
+This should only affect app users. The command line script should still work as normal.
 
 ### *Update: 10/23/2017*
 

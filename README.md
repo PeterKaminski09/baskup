@@ -1,6 +1,10 @@
 # 🎉 Baskup is now an OS X desktop application! 🎉
 ## Download @ http://peterkaminski09.github.io/baskup/ 
-### *Last updated: 10/23/2017*
+
+### *Update: 11/16/2018*
+Mojave users will need to add the program to the System Preferences → Security & Privacy → Privacy → Full Disk Access pane. 
+
+### *Update: 10/23/2017*
 
 Download the MacOS app for contact recognition, timestamps, and automated backups (coming soon)
 

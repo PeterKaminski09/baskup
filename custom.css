@@ -1,0 +1,35 @@
+html, body {
+	font-family: 'Roboto', sans-serif;
+	background-color: #686699;
+
+}
+
+hr {
+	background-color: white;
+}
+
+a {
+	color: #FFB347;
+}
+
+a:hover {
+	color: #FF8E8B;
+}
+
+.banner-text {
+	color: white;
+	text-align: center;
+	padding: 10px;
+	font-size: 4.2rem;
+}
+
+.banner-img {
+	padding-top: 10px;
+	border-radius: 50px;
+	max-height: 300px;
+	max-width: 300px;
+}
+
+.banner-detail {
+	color: white;
+}

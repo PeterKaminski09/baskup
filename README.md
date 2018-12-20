@@ -25,7 +25,7 @@ Download the MacOS app for contact recognition & timestamps
 
 Baskup furthers the work of https://github.com/kyro38 's iMessage backup script by reducing the need for user input and backing up all of the user's messages. 
 
-## How do I use Baskup? 
+## How do I use the Baskup script? 
 
 To use baskup:
 

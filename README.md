@@ -1,5 +1,7 @@
-# 🎉 Baskup is now an OS X desktop application! 🎉
-## Download @ http://peterkaminski09.github.io/baskup/ 
+### *Update: 12/19/2018* ###
+The Mac version of Baskup is under some construction in an effort to distribute the app on Apple's macOS app store. 
+
+In the meantime, you can still use the command-line script on Github and keep an eye out for updates as they will be posted to this page.
 
 ### *Update: 11/16/2018*
 Due to Apple security improvements, macOS Mojave users will need to add the program to the System Preferences → Security & Privacy → Privacy → Full Disk Access pane. This allows Baskup to access messages.
@@ -53,7 +55,4 @@ Your bask-up master folder will now begin to be filled with your backups. This m
 
 ## Opening an issue
 
-When opening an issue, please note the issue as either related to the bash script or the macOS version of baskup. For macOS, please include the version number in your issue log. 
-
-## Contributing
-Open source contributions to this script are welcome! This project is currently being maintained by @peterkaminski09 and has contributions from @timgaleckas and @Pezmc
+When opening an issue, please note the issue as either related to the bash script or the macOS version of baskup. For macOS, please include the version number in your issue log.

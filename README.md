@@ -3,7 +3,7 @@
 Baskup is a bash script and macOS app that are aimed at taking your iMessages, which Apple stores on your local machine in non-readable iChat files, and converting them into human-readable .txt files that you read and keep as backups on your computer.
 Whether it's a group message, picture, audio file, iMessage, or SMS, Baskup will back it up.
 
-### *Update: 12/19/2018* ###
+### *Update: 12/19/2018 -- Baskup 3.0* ###
 The Mac version of Baskup is under some construction in an effort to distribute the app on Apple's macOS app store. 
 
 In the meantime, you can still use the command-line script on Github and keep an eye out for updates as they will be posted to this page.
@@ -15,9 +15,9 @@ Baskup script users will need to add their terminal application to the Full Disk
 
 ![screen shot 2018-11-16 at 1 10 55 pm](https://user-images.githubusercontent.com/5935411/48647550-2c7a0200-e9a1-11e8-832a-4500ea67e571.jpg)
 
-### *Update: 10/23/2017*
+### *Update: 10/23/2017 -- Baskup 2.0*
 
-Download the MacOS app for contact recognition, timestamps, and automated backups (coming soon)
+Download the MacOS app for contact recognition & timestamps
 
 *Most future improvements to Baskup will only be available on the desktop version.*
 

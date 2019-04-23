@@ -1,0 +1,59 @@
+#!/bin/bash
+BACKUP_DIR=./backup
+
+OS_Version=$(sw_vers -productVersion)
+LAST_VERSION=10.13
+NEEDS_MODIFICATION=$(echo $OS_Version '>=' $LAST_VERSION | bc -l)
+BACKUP_ATTACHMENTS=0
+
+while getopts ":a" opt; do
+  case $opt in
+    a)
+      echo "Running baskup for text + attachments"
+      BACKUP_ATTACHMENTS=1
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
+function sql () {
+  sqlite3 ~/Library/Messages/chat.db "$1"
+}
+
+while IFS= read -r guid; do
+
+  contact=$guid
+  arrIN=(${contact//;/ })
+  contactNumber=${arrIN[2]}
+  #Make a directory specifically for this folder
+  mkdir -p $BACKUP_DIR/$contactNumber/Attachments
+
+  #Perform SQL operations
+  if [[ $NEEDS_MODIFICATION == 1 ]]; then
+    sql "
+    SELECT is_from_me,text, DATETIME((date/1000000000) + STRFTIME('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') AS date FROM message WHERE handle_id=(
+        SELECT handle_id FROM chat_handle_join WHERE chat_id=(
+        SELECT ROWID FROM chat WHERE guid='$guid')
+    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$guid.txt
+  else
+    sql "
+    SELECT is_from_me,text, DATETIME(date + STRFTIME('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') AS date FROM message WHERE handle_id=(
+        SELECT handle_id FROM chat_handle_join WHERE chat_id=(
+        SELECT ROWID FROM chat WHERE guid='$guid')
+    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$guid.txt
+  fi
+
+  if [[ $BACKUP_ATTACHMENTS == 1 ]]; then
+    sql "
+    SELECT filename FROM attachment WHERE rowid IN (
+        SELECT attachment_id FROM message_attachment_join WHERE message_id IN (
+            SELECT rowid FROM message WHERE cache_has_attachments=1 AND handle_id=(
+                SELECT handle_id FROM chat_handle_join WHERE chat_id=(
+                    SELECT ROWID FROM chat WHERE guid='$guid')
+    )))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -I fname cp fname $BACKUP_DIR/$contactNumber/Attachments
+  fi
+
+done <(sql "SELECT DISTINCT guid FROM chat;" )

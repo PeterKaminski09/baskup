@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BACKUP_DIR=./backup
 
 OS_Version=$(sw_vers -productVersion)
@@ -19,13 +19,13 @@ while getopts ":a" opt; do
   esac
 done
 
-function select_rows () {
+function sql () {
   sqlite3 ~/Library/Messages/chat.db "$1"
 }
 
-for line in $(select_rows "select distinct guid from chat;" ); do
+while IFS= read -r guid; do
 
-  contact=$line
+  contact=$guid
   arrIN=(${contact//;/ })
   contactNumber=${arrIN[2]}
   #Make a directory specifically for this folder
@@ -33,27 +33,27 @@ for line in $(select_rows "select distinct guid from chat;" ); do
 
   #Perform SQL operations
   if [[ $NEEDS_MODIFICATION == 1 ]]; then
-    select_rows "
+    sql "
     select is_from_me,text, datetime((date/1000000000) + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
     select handle_id from chat_handle_join where chat_id=(
-    select ROWID from chat where guid='$line')
-    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+    select ROWID from chat where guid='$guid')
+    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$guid.txt
   else
-    select_rows "
+    sql "
     select is_from_me,text, datetime(date + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
     select handle_id from chat_handle_join where chat_id=(
-    select ROWID from chat where guid='$line')
-    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+    select ROWID from chat where guid='$guid')
+    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$guid.txt
   fi
 
   if [[ $BACKUP_ATTACHMENTS == 1 ]]; then
-    select_rows "
+    sql "
     select filename from attachment where rowid in (
     select attachment_id from message_attachment_join where message_id in (
     select rowid from message where cache_has_attachments=1 and handle_id=(
     select handle_id from chat_handle_join where chat_id=(
-    select ROWID from chat where guid='$line')
+    select ROWID from chat where guid='$guid')
     )))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -I fname cp fname $BACKUP_DIR/$contactNumber/Attachments
   fi
 
-done
+done <(sql "select distinct guid from chat;" )

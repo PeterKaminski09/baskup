@@ -37,13 +37,13 @@ for line in $(select_rows "select distinct guid from chat;" ); do
     select is_from_me,text, datetime((date/1000000000) + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
     select handle_id from chat_handle_join where chat_id=(
     select ROWID from chat where guid='$line')
-    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+    )" | sed 's/'1\|'/Me: /g;s/'0\|'/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
   else
     select_rows "
     select is_from_me,text, datetime(date + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
     select handle_id from chat_handle_join where chat_id=(
     select ROWID from chat where guid='$line')
-    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+    )" | sed 's/'1\|'/Me: /g;s/'0\|'/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
   fi
 
   if [[ $BACKUP_ATTACHMENTS == 1 ]]; then

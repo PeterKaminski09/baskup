@@ -5,6 +5,7 @@ OS_Version=$(sw_vers -productVersion)
 LAST_VERSION=10.13
 NEEDS_MODIFICATION=$(echo $OS_Version '>=' $LAST_VERSION | bc -l)
 BACKUP_ATTACHMENTS=0
+BACKUP_ALL_ATTACHMENTS=0
 
 while getopts ":a" opt; do
   case $opt in
@@ -12,6 +13,9 @@ while getopts ":a" opt; do
       echo "Running baskup for text + attachments"
       BACKUP_ATTACHMENTS=1
       ;;
+    all-attachments)
+      echo "Saving all attachments to seperate directory"
+      BACKUP_ALL_ATTACHMENTS=1
     \?)
       echo "Invalid option: -$OPTARG" >&2
       exit 1
@@ -37,13 +41,13 @@ for line in $(select_rows "select distinct guid from chat;" ); do
     select is_from_me,text, datetime((date/1000000000) + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
     select handle_id from chat_handle_join where chat_id=(
     select ROWID from chat where guid='$line')
-    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+    )" | sed 's/'1\|'/Me: /g;s/'0\|'/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
   else
     select_rows "
     select is_from_me,text, datetime(date + strftime('%s', '2001-01-01 00:00:00'), 'unixepoch', 'localtime') as date from message where handle_id=(
     select handle_id from chat_handle_join where chat_id=(
     select ROWID from chat where guid='$line')
-    )" | sed 's/1\|/Me: /g;s/0\|/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
+    )" | sed 's/'1\|'/Me: /g;s/'0\|'/Friend: /g' > $BACKUP_DIR/$contactNumber/$line.txt
   fi
 
   if [[ $BACKUP_ATTACHMENTS == 1 ]]; then
@@ -54,6 +58,11 @@ for line in $(select_rows "select distinct guid from chat;" ); do
     select handle_id from chat_handle_join where chat_id=(
     select ROWID from chat where guid='$line')
     )))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -I fname cp fname $BACKUP_DIR/$contactNumber/Attachments
+  fi
+  
+  if [[ $BACKUP_ALL_ATTACHMENTS == 1 ]]; then
+    select_rows "
+    select filename from attachment)" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -I fname cp fname $BACKUP_DIR/All_Attachments
   fi
 
 done

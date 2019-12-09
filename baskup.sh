@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 BACKUP_DIR=./backup
 
 OS_Version=$(sw_vers -productVersion)
@@ -53,7 +53,7 @@ for line in $(select_rows "select distinct guid from chat;" ); do
     select rowid from message where cache_has_attachments=1 and handle_id=(
     select handle_id from chat_handle_join where chat_id=(
     select ROWID from chat where guid='$line')
-    )))" | cut -c 2- | awk -v home=$HOME '{print home $0}' | tr '\n' '\0' | xargs -0 -I fname cp fname $BACKUP_DIR/$contactNumber/Attachments
+    )))" | sed 's@^~@'"$HOME"'@' | tr '\n' '\0' | xargs -0 -I fname cp fname $BACKUP_DIR/$contactNumber/Attachments
   fi
 
 done
